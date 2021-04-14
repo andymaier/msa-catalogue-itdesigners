@@ -96,8 +96,12 @@ public class CatalogueRestController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> del(@PathVariable String id) {
-		repo.delete(get(id).getBody());
-		return ResponseEntity.ok().build();
+		Operation op = new Operation("article", "delete", mapper.valueToTree(get(id).getBody()));
+		kafka.send("shop", op);
+
+		//repo.delete(get(id).getBody());
+		//return ResponseEntity.ok().build();
+		return ResponseEntity.accepted().build();
 	}
 
 }

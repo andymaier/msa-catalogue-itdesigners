@@ -23,9 +23,19 @@ public class ShopListener {
 	public void listen(Operation op) throws Exception {
 		System.out.println("op = " + op);
 
-		if(op.getBo().equals("article") && op.getAction().equals("upsert") ){
+		if(op.getBo().equals("article")){
 			Article article = mapper.treeToValue(op.getObject(), Article.class);
-			repo.save(article);
+
+			switch(op.getAction()) {
+				case "upsert":
+					repo.save(article);
+					break;
+				case "delete":
+					repo.delete(article);
+					break;
+			}
+
+			
 		}
 	}
 }

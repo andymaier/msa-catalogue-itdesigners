@@ -2,7 +2,7 @@ POST http://localhost:8080/articles/
 Content-Type: application/json
 
 {
-    "name": "Weißwurst",
+    "name": "Currywurst",
     "price": 3.90
 }
 
