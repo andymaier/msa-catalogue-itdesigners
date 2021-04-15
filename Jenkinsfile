@@ -13,11 +13,12 @@ node {
         }
 
         stage('Docker image') {
-             docker.build("catalogue")
+             //docker.build("catalogue")
+             sh "docker build -t catalogue ."
         }
 
         stage("Deploy") {
             sh "docker rm -f catalogue || echo 'ok'"
-            sh "docker run -d --name catalogue --net shop -p 2020:8080 catalogue"
+            sh "docker run -d --name catalogue --net confluent-docker_default -p 2020:8080 catalogue"
         }
 }
